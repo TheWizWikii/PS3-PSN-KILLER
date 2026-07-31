@@ -41,14 +41,14 @@ La aplicación opera mediante los siguientes componentes lógicos:
 
 ---
 
+## 🚀 Instalación y Uso
+
+1. Clona este repositorio o descarga los archivos fuente y arranca la app con python app.py
+
+---
+
 ## 📜 Descargo de Responsabilidad (Disclaimer)
 Este software se proporciona con fines educativos y de preservación digital de contenido adquirido legalmente. El desarrollador no se hace responsable del mal uso que se le pueda dar a esta herramienta.
    git clone [https://github.com/TheWizWikii/PS3-PSN-KILLER.git](https://github.com/TheWizWikii/PS3-PSN-KILLER.git)
    cd PS3-PSN-KILLER
-
----
-
-## 🚀 Instalación y Uso
-
-1. Clona este repositorio o descarga los archivos fuente
 
