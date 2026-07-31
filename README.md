@@ -50,5 +50,5 @@ Este software se proporciona con fines educativos y de preservación digital de 
 
 ## 🚀 Instalación y Uso
 
-1. Clona este repositorio o descarga los archivos fuente:
-   ```bash
+1. Clona este repositorio o descarga los archivos fuente
+
