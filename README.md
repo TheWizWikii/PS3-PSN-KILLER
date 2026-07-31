@@ -43,7 +43,7 @@ La aplicación opera mediante los siguientes componentes lógicos:
 
 ## 🚀 Instalación y Uso
 
-1. Clona este repositorio o descarga los archivos fuente y arranca la app con python app.py
+1. Clona este repositorio o descarga los archivos fuente y arranca la app con `python app.py`
 
 ---
 
