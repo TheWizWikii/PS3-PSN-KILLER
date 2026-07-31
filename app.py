@@ -397,10 +397,14 @@ class PS3DownloaderApp(ctk.CTk):
                     name = ""
                     tid = ""
 
-                    if len(row) >= 3:
-                        url = row[2].strip()
-                        name = row[1].strip()
+                    if len(row) >= 4:
                         tid = row[0].strip()[:9] if len(row[0].strip()) >= 9 else row[0].strip()
+                        name = row[1].strip()
+                        url = row[3].strip()
+                    elif len(row) >= 3:
+                        tid = row[0].strip()[:9] if len(row[0].strip()) >= 9 else row[0].strip()
+                        name = row[1].strip()
+                        url = row[2].strip()
 
                     if url.startswith("http"):
                         region = auto_detect_region(tid)
