@@ -1,8 +1,14 @@
-# 🎮 PS3 PSN Killer (Turbo Pro)
+# 🎮 PS3 PSN Killer
 
 Una aplicación de escritorio moderna desarrollada en **Python** con **CustomTkinter** diseñada para buscar, filtrar y descargar contenido oficial de PS3 de forma masiva y a alta velocidad (juegos, actualizaciones, demos, temas, avatares, DLCs y licencias RAP).
 
 > **💡 Nota importante:** Ideal para respaldar y preservar todo tu contenido digital ante un hipotético cierre de los servidores oficiales de la tienda de PS3. ¡Guarda tus juegos antes de que sea tarde! Xd
+
+---
+
+## 🖼️ Vista Previa
+
+![Captura de pantalla de la aplicación](screenshot.png)
 
 ---
 
@@ -39,5 +45,5 @@ La aplicación opera mediante los siguientes componentes lógicos:
 
 1. Clona este repositorio o descarga los archivos fuente:
    ```bash
-   git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
-   cd tu-repositorio
+   git clone [https://github.com/TheWizWikii/PS3-PSN-KILLER.git](https://github.com/TheWizWikii/PS3-PSN-KILLER.git)
+   cd PS3-PSN-KILLER
