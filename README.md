@@ -43,10 +43,22 @@ La aplicación opera mediante los siguientes componentes lógicos:
 
 ## 🚀 Instalación y Uso
 
-1. Clona este repositorio o descarga los archivos fuente y arranca la app con `python app.py`
+1. Clona este repositorio o descarga los archivos fuente.
+2. Crea y activa un entorno virtual:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+3. Instala las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Arranca la app:
+   ```bash
+   python app.py
+   ```
 
 ---
 
 ## 📜 Descargo de Responsabilidad (Disclaimer)
 Este software se proporciona con fines educativos y de preservación digital de contenido adquirido legalmente. El desarrollador no se hace responsable del mal uso que se le pueda dar a esta herramienta.
-
