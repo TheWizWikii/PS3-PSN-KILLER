@@ -63,19 +63,21 @@ import customtkinter as ctk
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # URL directa al pack de licencias
 GITHUB_RAP_URL = "https://github.com/TheWizWikii/PS3-Stuff-Repository/releases/download/3/License_Pack_31.153.pkg"
 
 CARPETAS = {
-    "PS3": "Juegos_PS3",
-    "PS2": "PS2_Classics",
-    "PS1": "PS1_Classics",
-    "Updates": "Actualizaciones_PS3",
-    "Demos": "Demos_PS3",
-    "Temas": "Temas_PS3",
-    "Avatares": "Avatares_PS3",
-    "DLCs": "DLCs_PS3",
-    "RAP": "Keys_RAP"
+    "PS3": os.path.join(BASE_DIR, "Juegos_PS3"),
+    "PS2": os.path.join(BASE_DIR, "PS2_Classics"),
+    "PS1": os.path.join(BASE_DIR, "PS1_Classics"),
+    "Updates": os.path.join(BASE_DIR, "Actualizaciones_PS3"),
+    "Demos": os.path.join(BASE_DIR, "Demos_PS3"),
+    "Temas": os.path.join(BASE_DIR, "Temas_PS3"),
+    "Avatares": os.path.join(BASE_DIR, "Avatares_PS3"),
+    "DLCs": os.path.join(BASE_DIR, "DLCs_PS3"),
+    "RAP": os.path.join(BASE_DIR, "Keys_RAP")
 }
 
 # Crear carpetas de destino automáticamente
@@ -152,6 +154,10 @@ def format_speed(bytes_per_sec):
     else:
         kb_s = bytes_per_sec / 1024
         return f"{kb_s:.0f} KB/s"
+
+
+def data_path(filename):
+    return os.path.join(BASE_DIR, filename)
 
 
 class PS3DownloaderApp(ctk.CTk):
@@ -373,8 +379,9 @@ class PS3DownloaderApp(ctk.CTk):
         return tid, region, name, url, size_str
 
     def load_all_data(self):
-        if os.path.exists("PS3_GAMES.tsv"):
-            with open("PS3_GAMES.tsv", "r", encoding="utf-8", errors="ignore") as f:
+        games_path = data_path("PS3_GAMES.tsv")
+        if os.path.exists(games_path):
+            with open(games_path, "r", encoding="utf-8", errors="ignore") as f:
                 reader = csv.reader(f, delimiter="\t")
                 for row in reader:
                     parsed = self._parse_tsv_row(row)
@@ -389,22 +396,31 @@ class PS3DownloaderApp(ctk.CTk):
                         else:
                             self.data_store["PS3"].append((tid, region, clean_name, ver, size_str, url))
 
-        if os.path.exists("PS3_UPDATES.tsv"):
-            with open("PS3_UPDATES.tsv", "r", encoding="utf-8", errors="ignore") as f:
+        updates_path = data_path("PS3_UPDATES.tsv")
+        if os.path.exists(updates_path):
+            with open(updates_path, "r", encoding="utf-8", errors="ignore") as f:
                 reader = csv.reader(f, delimiter="\t")
                 for row in reader:
-                    url = ""
-                    name = ""
-                    tid = ""
+                    if not row:
+                        continue
 
-                    if len(row) >= 3:
-                        url = row[2].strip()
-                        name = row[1].strip()
-                        tid = row[0].strip()[:9] if len(row[0].strip()) >= 9 else row[0].strip()
+                    url_index = next((i for i, col in enumerate(row) if col.strip().startswith("http")), None)
+                    if url_index is None:
+                        continue
+
+                    url = row[url_index].strip()
+                    tid = row[0].strip()[:9] if row[0].strip() else "UNKNOWN"
+                    name = row[1].strip() if len(row) > 1 else f"Actualización ({tid})"
+                    extracted_ver = "v01.00"
+
+                    if len(row) > 2 and 2 != url_index:
+                        extracted_ver = row[2].strip() or extracted_ver
 
                     if url.startswith("http"):
                         region = auto_detect_region(tid)
-                        clean_name, extracted_ver = split_name_and_version(name, "v01.00")
+                        clean_name, name_ver = split_name_and_version(name, extracted_ver)
+                        if name_ver and name_ver != extracted_ver:
+                            extracted_ver = name_ver
 
                         if extracted_ver.lower() in ["update", "base"] or not extracted_ver:
                             url_ver_match = re.search(r'-A(\d{2})(\d{2})-', url, re.IGNORECASE)
@@ -424,8 +440,9 @@ class PS3DownloaderApp(ctk.CTk):
         }
 
         for file_name, cat in tsv_mappings.items():
-            if os.path.exists(file_name):
-                with open(file_name, "r", encoding="utf-8", errors="ignore") as f:
+            file_path = data_path(file_name)
+            if os.path.exists(file_path):
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                     reader = csv.reader(f, delimiter="\t")
                     for row in reader:
                         parsed = self._parse_tsv_row(row)
